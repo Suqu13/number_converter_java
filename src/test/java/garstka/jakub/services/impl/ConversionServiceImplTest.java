@@ -5,8 +5,7 @@ import garstka.jakub.models.NumeralSystem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class ConversionServiceImplTest {
@@ -54,7 +53,7 @@ class ConversionServiceImplTest {
     }
 
     @Test
-    void throwExceptionWhenValueLowerThanOne() {
+    void throwExceptionWhenValueLowerThanOneToRomainNumeralSystem() {
         NumeralSystem romain = NumeralSystem.ROMAIN;
 
         Double decimalValue_0 = 0.0;
@@ -67,7 +66,7 @@ class ConversionServiceImplTest {
     }
 
     @Test
-    void throwExceptionWhenValueHigherThanTreeThousandNineHundredNinetyNine() {
+    void throwExceptionWhenValueHigherThanTreeThousandNineHundredNinetyNineToRomainNumeralSystem() {
         NumeralSystem romain = NumeralSystem.ROMAIN;
 
         Double decimalValue_4000 = 4000.0;
@@ -77,5 +76,79 @@ class ConversionServiceImplTest {
         assertThrows(InvalidNumberExceptions.class, () -> {conversionService.convert(decimalValue_10000, romain);});
     }
 
+    @Test
+    void convertIntegerValueToHexadecimalNumeralSystem() {
+        NumeralSystem hexadecimal = NumeralSystem.HEXADECIMAL;
+
+        Double decimal_10 = 10.0;
+        Double decimal_100 = 100.0;
+        Double decimal_245 = 245.0;
+
+        String hexadecimal_10 = "A";
+        String hexadecimal_100 = "64";
+        String hexadecimal_245 = "F5";
+
+        assertEquals(hexadecimal_10, conversionService.convert(decimal_10, hexadecimal));
+        assertEquals(hexadecimal_100, conversionService.convert(decimal_100, hexadecimal));
+        assertEquals(hexadecimal_245, conversionService.convert(decimal_245, hexadecimal));
+    }
+
+    private Boolean checkIfNumbersWithFractionAreAlmostEqual(String value, String valueToCompare) {
+        valueToCompare = valueToCompare.substring(0, valueToCompare.length() - 1);
+        value = value.substring(0, valueToCompare.length());
+        return value.equals(valueToCompare);
+    }
+
+    @Test
+    void convertFractionValueToHexadecimalNumeralSystem() {
+        NumeralSystem hexadecimal = NumeralSystem.HEXADECIMAL;
+
+        Double decimal_0dot25 = 0.25;
+        Double decimal_0dot8 = 0.80;
+        Double decimal_0dot223 = 0.223;
+
+
+        String hexadecimal_0dot25 = "0.4";
+        String hexadecimal_0dot8 = "0.CCCCCCCCCCCCCCCCCCCD";
+        String hexadecimal_0dot223 = "0.3916872B020C49BA5E35";
+
+        assertTrue(checkIfNumbersWithFractionAreAlmostEqual(hexadecimal_0dot25, conversionService.convert(decimal_0dot25, hexadecimal)));
+        assertTrue(checkIfNumbersWithFractionAreAlmostEqual(hexadecimal_0dot8, conversionService.convert(decimal_0dot8, hexadecimal)));
+        assertTrue(checkIfNumbersWithFractionAreAlmostEqual(hexadecimal_0dot223, conversionService.convert(decimal_0dot223, hexadecimal)));
+    }
+
+    @Test
+    void convertMixedValueToHexadecimalNumeralSystem() {
+        NumeralSystem hexadecimal = NumeralSystem.HEXADECIMAL;
+
+        Double decimal_1dot25 = 1.25;
+        Double decimal_91dot8 = 91.80;
+        Double decimal_199dot223 = 199.223;
+
+        String hexadecimal_1dot25 = "1.4";
+        String hexadecimal_91dot8 = "5B.CCCCCCCCCCCCCCCCCCCD";
+        String hexadecimal_199dot223  = "C7.3916872B020C49BA5E35";
+
+        assertTrue(checkIfNumbersWithFractionAreAlmostEqual(hexadecimal_1dot25, conversionService.convert(decimal_1dot25, hexadecimal)));
+        assertTrue(checkIfNumbersWithFractionAreAlmostEqual(hexadecimal_91dot8, conversionService.convert(decimal_91dot8, hexadecimal)));
+        assertTrue(checkIfNumbersWithFractionAreAlmostEqual(hexadecimal_199dot223, conversionService.convert(decimal_199dot223, hexadecimal)));
+    }
+
+    @Test
+    void convertNegativeMixedValueToHexadecimalNumeralSystem() {
+        NumeralSystem hexadecimal = NumeralSystem.HEXADECIMAL;
+
+        Double decimal_minus_1dot25 = -1.25;
+        Double decimal_minus_91dot8 = -91.80;
+        Double decimal_minus_199dot223 = -199.223;
+
+        String hexadecimal_minus_1dot25 = "-1.4";
+        String hexadecimal_minus_91dot8 = "-5B.CCCCCCCCCCCCCCCCCCCD";
+        String hexadecimal_minus_199dot223  = "-C7.3916872B020C49BA5E35";
+
+        assertTrue(checkIfNumbersWithFractionAreAlmostEqual(hexadecimal_minus_1dot25, conversionService.convert(decimal_minus_1dot25, hexadecimal)));
+        assertTrue(checkIfNumbersWithFractionAreAlmostEqual(hexadecimal_minus_91dot8, conversionService.convert(decimal_minus_91dot8, hexadecimal)));
+        assertTrue(checkIfNumbersWithFractionAreAlmostEqual(hexadecimal_minus_199dot223, conversionService.convert(decimal_minus_199dot223, hexadecimal)));
+    }
 
 }
