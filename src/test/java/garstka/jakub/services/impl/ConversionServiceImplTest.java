@@ -18,8 +18,8 @@ class ConversionServiceImplTest {
     }
 
     @Test
-    void convertExemplaryEdgeCasesForRomainNumeralSystem() {
-        NumeralSystem romain = NumeralSystem.ROMAIN;
+    void convertExemplaryEdgeCasesForRomanNumeralSystem() {
+        NumeralSystem roman = NumeralSystem.ROMAN;
 
         Double decimal_1 = 1.0;
         Double decimal_4 = 4.0;
@@ -31,47 +31,47 @@ class ConversionServiceImplTest {
         Double decimal_545 = 545.0;
         Double decimal_3999 = 3999.0;
 
-        String romain_1 = "I";
-        String romain_4 = "IV";
-        String romain_9 = "IX";
-        String romain_19 = "XIX";
-        String romain_49 = "XLIX";
-        String romain_59 = "LIX";
-        String romain_99 = "XCIX";
-        String romain_545 = "DXLV";
-        String romain_3999 = "MMMCMXCIX";
+        String roman_1 = "I";
+        String roman_4 = "IV";
+        String roman_9 = "IX";
+        String roman_19 = "XIX";
+        String roman_49 = "XLIX";
+        String roman_59 = "LIX";
+        String roman_99 = "XCIX";
+        String roman_545 = "DXLV";
+        String roman_3999 = "MMMCMXCIX";
 
-        assertEquals(romain_1, conversionService.convert(decimal_1, romain));
-        assertEquals(romain_4, conversionService.convert(decimal_4, romain));
-        assertEquals(romain_9, conversionService.convert(decimal_9, romain));
-        assertEquals(romain_19, conversionService.convert(decimal_19, romain));
-        assertEquals(romain_49, conversionService.convert(decimal_49, romain));
-        assertEquals(romain_59, conversionService.convert(decimal_59, romain));
-        assertEquals(romain_99, conversionService.convert(decimal_99, romain));
-        assertEquals(romain_545, conversionService.convert(decimal_545, romain));
-        assertEquals(romain_3999, conversionService.convert(decimal_3999, romain));
+        assertEquals(roman_1, conversionService.convert(decimal_1, roman));
+        assertEquals(roman_4, conversionService.convert(decimal_4, roman));
+        assertEquals(roman_9, conversionService.convert(decimal_9, roman));
+        assertEquals(roman_19, conversionService.convert(decimal_19, roman));
+        assertEquals(roman_49, conversionService.convert(decimal_49, roman));
+        assertEquals(roman_59, conversionService.convert(decimal_59, roman));
+        assertEquals(roman_99, conversionService.convert(decimal_99, roman));
+        assertEquals(roman_545, conversionService.convert(decimal_545, roman));
+        assertEquals(roman_3999, conversionService.convert(decimal_3999, roman));
     }
 
     @Test
-    void throwExceptionWhenValueLowerThanOneToRomainNumeralSystem() {
-        NumeralSystem romain = NumeralSystem.ROMAIN;
+    void throwExceptionWhenValueLowerThanOneToRomanNumeralSystem() {
+        NumeralSystem roman = NumeralSystem.ROMAN;
 
         Double decimalValue_minus_1 = -1.0;
         Double decimalValue_minus_4000 = -4000.0;
 
-        assertThrows(InvalidNumberException.class, () -> {conversionService.convert(decimalValue_minus_1, romain);});
-        assertThrows(InvalidNumberException.class, () -> {conversionService.convert(decimalValue_minus_4000, romain);});
+        assertThrows(InvalidNumberException.class, () -> {conversionService.convert(decimalValue_minus_1, roman);});
+        assertThrows(InvalidNumberException.class, () -> {conversionService.convert(decimalValue_minus_4000, roman);});
     }
 
     @Test
-    void throwExceptionWhenValueHigherThanTreeThousandNineHundredNinetyNineToRomainNumeralSystem() {
-        NumeralSystem romain = NumeralSystem.ROMAIN;
+    void throwExceptionWhenValueHigherThanTreeThousandNineHundredNinetyNineToRomanNumeralSystem() {
+        NumeralSystem roman = NumeralSystem.ROMAN;
 
         Double decimalValue_4000 = 4000.0;
         Double decimalValue_10000 = 10000.0;
 
-        assertThrows(InvalidNumberException.class, () -> {conversionService.convert(decimalValue_4000, romain);});
-        assertThrows(InvalidNumberException.class, () -> {conversionService.convert(decimalValue_10000, romain);});
+        assertThrows(InvalidNumberException.class, () -> {conversionService.convert(decimalValue_4000, roman);});
+        assertThrows(InvalidNumberException.class, () -> {conversionService.convert(decimalValue_10000, roman);});
     }
 
     @Test

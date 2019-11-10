@@ -5,7 +5,7 @@ import garstka.jakub.config.exceptions.InvalidNumeralSystemException;
 import static garstka.jakub.config.Constants.INVALID_NUMERAL_SYSTEM_MASSAGE;
 
 public enum NumeralSystem {
-    ROMAIN,
+    ROMAN,
     HEXADECIMAL;
 
     public static NumeralSystem lookUp(String name) {

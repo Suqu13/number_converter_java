@@ -17,11 +17,11 @@ public class ConversionServiceImpl implements ConversionService {
     @Override
     public String convert(Double decimalValue, NumeralSystem numeralSystem) throws RuntimeException {
         switch (numeralSystem) {
-            case ROMAIN:
+            case ROMAN:
                 int integerPart = decimalValue.intValue();
                 if (integerPart != decimalValue)
-                    throw new InvalidNumberException(FRACTION_NOT_SUPPORTED_BY_ROMAIN_NUMERAL_SYSTEM);
-                return convertToRomain(decimalValue.intValue());
+                    throw new InvalidNumberException(FRACTION_NOT_SUPPORTED_BY_ROMAN_NUMERAL_SYSTEM);
+                return convertToRoman(decimalValue.intValue());
             case HEXADECIMAL:
                 return convertToHexadecimal(decimalValue);
             default:
@@ -29,22 +29,22 @@ public class ConversionServiceImpl implements ConversionService {
         }
     }
 
-    private String convertToRomain(Integer value) throws InvalidNumberException {
-        if (value > HIGHEST_ROMAIN_NUMBER || value < LOWEST_ROMAIN_NUMBER)
-            throw new InvalidNumberException(HIGHEST_ROMAIN_NUMBER, LOWEST_ROMAIN_NUMBER);
+    private String convertToRoman(Integer value) throws InvalidNumberException {
+        if (value > HIGHEST_ROMAN_NUMBER || value < LOWEST_ROMAN_NUMBER)
+            throw new InvalidNumberException(HIGHEST_ROMAN_NUMBER, LOWEST_ROMAN_NUMBER);
 
         StringBuilder result = new StringBuilder();
-        result.append(romainDecoder(value / 1000, "M", "", ""));
+        result.append(romanDecoder(value / 1000, "M", "", ""));
         value %= 1000;
-        result.append(romainDecoder(value / 100, "C", "D", "M"));
+        result.append(romanDecoder(value / 100, "C", "D", "M"));
         value %= 100;
-        result.append(romainDecoder(value / 10, "X", "L", "C"));
+        result.append(romanDecoder(value / 10, "X", "L", "C"));
         value %= 10;
-        result.append(romainDecoder(value, "I", "V", "X"));
+        result.append(romanDecoder(value, "I", "V", "X"));
         return result.toString();
     }
 
-    private String romainDecoder(Integer value, String one, String five, String ten) {
+    private String romanDecoder(Integer value, String one, String five, String ten) {
         switch (value) {
             case EDGE_CASE_WITH_ZERO:
                 return "";

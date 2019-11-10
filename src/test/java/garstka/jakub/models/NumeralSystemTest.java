@@ -10,13 +10,13 @@ public class NumeralSystemTest {
 
     @Test
     public void lookUpValidNumeralSystem() {
-        NumeralSystem numeralSystemRomain = NumeralSystem.ROMAIN;
+        NumeralSystem numeralSystemRoman = NumeralSystem.ROMAN;
         NumeralSystem numeralSystemHexadecimal = NumeralSystem.HEXADECIMAL;
 
-        String romainNumeralSystemName = "ROMAIN";
+        String romanNumeralSystemName = "ROMAN";
         String hexadecimalNumeralSystemName = "HEXADECIMAL";
 
-        assertEquals(numeralSystemRomain, NumeralSystem.lookUp(romainNumeralSystemName));
+        assertEquals(numeralSystemRoman, NumeralSystem.lookUp(romanNumeralSystemName));
         assertEquals(numeralSystemHexadecimal, NumeralSystem.lookUp(hexadecimalNumeralSystemName));
     }
 

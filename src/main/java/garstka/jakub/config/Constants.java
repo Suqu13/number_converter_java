@@ -5,9 +5,9 @@ public class Constants {
 
     public static final String INVALID_NUMERAL_SYSTEM_MASSAGE = "Provided numeral system is not supported";
 
-    public static final String FRACTION_NOT_SUPPORTED_BY_ROMAIN_NUMERAL_SYSTEM = "Provided number contains fraction part which is not supported by Romain Numeral System";
-    public static final Integer LOWEST_ROMAIN_NUMBER = 0;
-    public static final Integer HIGHEST_ROMAIN_NUMBER = 3999;
+    public static final String FRACTION_NOT_SUPPORTED_BY_ROMAN_NUMERAL_SYSTEM = "Provided number contains fraction part which is not supported by Roman Numeral System";
+    public static final Integer LOWEST_ROMAN_NUMBER = 0;
+    public static final Integer HIGHEST_ROMAN_NUMBER = 3999;
 
     public static final int EDGE_CASE_WITH_ZERO = 0;
     public static final int EDGE_CASE_WITH_MULTIPLE_FOUR = 4;

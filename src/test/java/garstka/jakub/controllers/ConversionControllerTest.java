@@ -39,7 +39,7 @@ public class ConversionControllerTest {
     }
 
     @Test
-    public void convertTenToRomainNumber() throws Exception {
+    public void convertTenToRomanNumber() throws Exception {
         //given
         String romainTen = "X";
 
@@ -49,7 +49,7 @@ public class ConversionControllerTest {
         //then
         mockMvc.perform(get(ConversionController.CONVERSION_CONTROLLER_BASE_URL + "/convert")
                 .param("decimal_value", "10")
-                .param("numeral_system", "ROMAIN"))
+                .param("numeral_system", "ROMAN"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(romainTen));
     }
@@ -81,16 +81,16 @@ public class ConversionControllerTest {
     }
 
     @Test
-    public void convertInvalidNumberToRomainNumber() throws Exception {
+    public void convertInvalidNumberToRomanNumber() throws Exception {
         //when
         when(conversionService.convert(anyDouble(), any(NumeralSystem.class)))
-                .thenThrow(new InvalidNumberException(LOWEST_ROMAIN_NUMBER, HIGHEST_ROMAIN_NUMBER));
+                .thenThrow(new InvalidNumberException(LOWEST_ROMAN_NUMBER, HIGHEST_ROMAN_NUMBER));
 
         //then
         mockMvc.perform(get(ConversionController.CONVERSION_CONTROLLER_BASE_URL + "/convert")
                 .param("decimal_value", "-1")
-                .param("numeral_system", "ROMAIN"))
+                .param("numeral_system", "ROMAN"))
                 .andExpect(status().isUnsupportedMediaType())
-                .andExpect(content().string(String.format(NOT_IN_THE_RANGE_MESSAGE, LOWEST_ROMAIN_NUMBER, HIGHEST_ROMAIN_NUMBER)));
+                .andExpect(content().string(String.format(NOT_IN_THE_RANGE_MESSAGE, LOWEST_ROMAN_NUMBER, HIGHEST_ROMAN_NUMBER)));
     }
 }
