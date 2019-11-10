@@ -18,7 +18,7 @@ public class ConversionController {
 
     @GetMapping("/convert")
         public String convert(@RequestParam(value = "decimal_value") Double decimalValue, @RequestParam(value = "numeral_system") String numeralSystemName) {
-        NumeralSystem numeralSystem = NumeralSystem.valueOf(numeralSystemName);
+        NumeralSystem numeralSystem = NumeralSystem.lookUp(numeralSystemName);
         return conversionService.convert(decimalValue, numeralSystem);
     }
 

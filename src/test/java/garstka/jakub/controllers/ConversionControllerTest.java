@@ -1,6 +1,6 @@
 package garstka.jakub.controllers;
 
-import garstka.jakub.config.InvalidNumberExceptions;
+import garstka.jakub.config.exceptions.InvalidNumberException;
 import garstka.jakub.models.NumeralSystem;
 import garstka.jakub.services.ConversionService;
 import org.junit.Before;
@@ -77,20 +77,20 @@ public class ConversionControllerTest {
                 .param("decimal_value", "10")
                 .param("numeral_system", "InvalidNumeralSystem"))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string(INVALID_URL_MESSAGE));
+                .andExpect(content().string(INVALID_NUMERAL_SYSTEM_MASSAGE));
     }
 
     @Test
     public void convertInvalidNumberToRomainNumber() throws Exception {
         //when
         when(conversionService.convert(anyDouble(), any(NumeralSystem.class)))
-                .thenThrow(new InvalidNumberExceptions(LOWEST_ROMAIN_NUMBER, HIGHEST_ROMAIN_NUMBER));
+                .thenThrow(new InvalidNumberException(LOWEST_ROMAIN_NUMBER, HIGHEST_ROMAIN_NUMBER));
 
         //then
         mockMvc.perform(get(ConversionController.CONVERSION_CONTROLLER_BASE_URL + "/convert")
                 .param("decimal_value", "-1")
                 .param("numeral_system", "ROMAIN"))
                 .andExpect(status().isUnsupportedMediaType())
-                .andExpect(content().string(INVALID_NUMBER_MESSAGE));
+                .andExpect(content().string(String.format(NOT_IN_THE_RANGE_MESSAGE, LOWEST_ROMAIN_NUMBER, HIGHEST_ROMAIN_NUMBER)));
     }
 }

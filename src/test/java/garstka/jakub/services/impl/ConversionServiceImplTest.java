@@ -1,6 +1,6 @@
 package garstka.jakub.services.impl;
 
-import garstka.jakub.config.InvalidNumberExceptions;
+import garstka.jakub.config.exceptions.InvalidNumberException;
 import garstka.jakub.models.NumeralSystem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -56,13 +56,11 @@ class ConversionServiceImplTest {
     void throwExceptionWhenValueLowerThanOneToRomainNumeralSystem() {
         NumeralSystem romain = NumeralSystem.ROMAIN;
 
-        Double decimalValue_0 = 0.0;
         Double decimalValue_minus_1 = -1.0;
         Double decimalValue_minus_4000 = -4000.0;
 
-        assertThrows(InvalidNumberExceptions.class, () -> {conversionService.convert(decimalValue_0, romain);});
-        assertThrows(InvalidNumberExceptions.class, () -> {conversionService.convert(decimalValue_minus_1, romain);});
-        assertThrows(InvalidNumberExceptions.class, () -> {conversionService.convert(decimalValue_minus_4000, romain);});
+        assertThrows(InvalidNumberException.class, () -> {conversionService.convert(decimalValue_minus_1, romain);});
+        assertThrows(InvalidNumberException.class, () -> {conversionService.convert(decimalValue_minus_4000, romain);});
     }
 
     @Test
@@ -72,25 +70,31 @@ class ConversionServiceImplTest {
         Double decimalValue_4000 = 4000.0;
         Double decimalValue_10000 = 10000.0;
 
-        assertThrows(InvalidNumberExceptions.class, () -> {conversionService.convert(decimalValue_4000, romain);});
-        assertThrows(InvalidNumberExceptions.class, () -> {conversionService.convert(decimalValue_10000, romain);});
+        assertThrows(InvalidNumberException.class, () -> {conversionService.convert(decimalValue_4000, romain);});
+        assertThrows(InvalidNumberException.class, () -> {conversionService.convert(decimalValue_10000, romain);});
     }
 
     @Test
     void convertIntegerValueToHexadecimalNumeralSystem() {
         NumeralSystem hexadecimal = NumeralSystem.HEXADECIMAL;
 
+        Double decimal_0 = 0.0;
         Double decimal_10 = 10.0;
         Double decimal_100 = 100.0;
         Double decimal_245 = 245.0;
+        Double decimal_1026 = 1026.0;
 
+        String hexadecimal_0 = "0";
         String hexadecimal_10 = "A";
         String hexadecimal_100 = "64";
         String hexadecimal_245 = "F5";
+        String hexadecimal_1026 = "402";
 
+        assertEquals(hexadecimal_0, conversionService.convert(decimal_0, hexadecimal));
         assertEquals(hexadecimal_10, conversionService.convert(decimal_10, hexadecimal));
         assertEquals(hexadecimal_100, conversionService.convert(decimal_100, hexadecimal));
         assertEquals(hexadecimal_245, conversionService.convert(decimal_245, hexadecimal));
+        assertEquals(hexadecimal_1026, conversionService.convert(decimal_1026, hexadecimal));
     }
 
     private Boolean checkIfNumbersWithFractionAreAlmostEqual(String value, String valueToCompare) {
@@ -121,14 +125,17 @@ class ConversionServiceImplTest {
     void convertMixedValueToHexadecimalNumeralSystem() {
         NumeralSystem hexadecimal = NumeralSystem.HEXADECIMAL;
 
+        Double decimal_0dot142 = 0.142;
         Double decimal_1dot25 = 1.25;
         Double decimal_91dot8 = 91.80;
         Double decimal_199dot223 = 199.223;
 
+        String hexadecimal_0dot142 = "0.245A1CAC083126E978D5";
         String hexadecimal_1dot25 = "1.4";
         String hexadecimal_91dot8 = "5B.CCCCCCCCCCCCCCCCCCCD";
         String hexadecimal_199dot223  = "C7.3916872B020C49BA5E35";
 
+        assertTrue(checkIfNumbersWithFractionAreAlmostEqual(hexadecimal_0dot142, conversionService.convert(decimal_0dot142, hexadecimal)));
         assertTrue(checkIfNumbersWithFractionAreAlmostEqual(hexadecimal_1dot25, conversionService.convert(decimal_1dot25, hexadecimal)));
         assertTrue(checkIfNumbersWithFractionAreAlmostEqual(hexadecimal_91dot8, conversionService.convert(decimal_91dot8, hexadecimal)));
         assertTrue(checkIfNumbersWithFractionAreAlmostEqual(hexadecimal_199dot223, conversionService.convert(decimal_199dot223, hexadecimal)));
