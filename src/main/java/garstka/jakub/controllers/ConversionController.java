@@ -26,7 +26,7 @@ public class ConversionController {
         public String convert(
                 @ApiParam("Number in arabic numeral system provided to conversion")
                 @RequestParam(value = "decimal_value") Double decimalValue,
-                @ApiParam("Value indicating a number system of a final result. Exemplary parameters ROMAN, HEXADECIMAL)")
+                @ApiParam("Value indicating a number system of a final result. Exemplary parameters: ROMAN, HEXADECIMAL")
                 @RequestParam(value = "numeral_system") String numeralSystemName) {
         try {
             NumeralSystem numeralSystem = NumeralSystem.valueOf(numeralSystemName);

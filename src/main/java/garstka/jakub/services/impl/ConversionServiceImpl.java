@@ -40,7 +40,7 @@ public class ConversionServiceImpl implements ConversionService {
 
     private String convertToRoman(Integer value) throws InvalidNumberException {
         if (value > HIGHEST_ROMAN_NUMBER || value < LOWEST_ROMAN_NUMBER)
-            throw new InvalidNumberException(HIGHEST_ROMAN_NUMBER, LOWEST_ROMAN_NUMBER);
+            throw new InvalidNumberException(LOWEST_ROMAN_NUMBER, HIGHEST_ROMAN_NUMBER);
 
         StringBuilder result = new StringBuilder();
         result.append(romanDecoder(value / 1000, "M", "", ""));
