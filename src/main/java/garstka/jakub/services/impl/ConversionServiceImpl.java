@@ -14,6 +14,15 @@ import static garstka.jakub.config.Constants.*;
 @Service
 public class ConversionServiceImpl implements ConversionService {
 
+    //ROMAN
+    private static final int EDGE_CASE_WITH_ZERO = 0;
+    private static final int EDGE_CASE_WITH_MULTIPLE_FOUR = 4;
+    private static final int EDGE_CASE_WITH_MULTIPLE_NINE = 9;
+
+    //HEXADECIMAL
+    private static final String[] HEXADECIMAL_DIGITS = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
+    private static final Integer BASE_HEXADECIMAL_SYSTEM_NUMBER = 16;
+
     @Override
     public String convert(Double decimalValue, NumeralSystem numeralSystem) throws RuntimeException {
         switch (numeralSystem) {
